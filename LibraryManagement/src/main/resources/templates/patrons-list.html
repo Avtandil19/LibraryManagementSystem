@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patrons</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .checkmark-green {
+            color: green;
+            font-size: 24px;
+        }
+
+        .checkmark-red {
+            color: red;
+            font-size: 24px;
+        }
+    </style>
+</head>
+    <body>
+        <div th:insert="header"></div>
+            <div class="container mt-4">
+                <h1>Patrons</h1>
+                <a th:href="@{/add-patron}" class="btn btn-primary mb-3">Add New Patron</a>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Contact Information</th>
+                        <th>Membership Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="patron : ${patrons}">
+                        <td th:text="${patron.name}">Name</td>
+                        <td th:text="${patron.contactInfo}">Contact Information</td>
+                        <td>
+                        <span th:if="${patron.membershipStatus}">
+                            <span class="checkmark-green">✓</span>
+                        </span>
+                        <span th:unless="${patron.membershipStatus}">
+                            <span class="checkmark-red">✗</span>
+                        </span>
+                        </td>
+                        <td>
+                            <a th:href="@{'/edit-patron/' + ${patron.id}}" class="btn btn-warning btn-sm">Edit</a>
+                        </td>
+                        <td>
+                            <a th:href="@{'/delete-patron/' + ${patron.id}}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+    </body>
+</html>
